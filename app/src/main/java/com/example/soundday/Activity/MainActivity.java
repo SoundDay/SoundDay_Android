@@ -35,15 +35,11 @@ public class MainActivity extends AppCompatActivity
         initRecyclerView(rcv_calendar, makeCalendarDate());
     }
 
-
-
     //CalendarAdapter.HandleCalendarClick interface 구현
     @Override
     public void itemClick(String day) {
         showDiaryListDialog();
     }
-
-
 
     //Method-------
     private void initRecyclerView(RecyclerView recyclerView, ArrayList<String> list) {
