@@ -1,24 +1,16 @@
 package com.example.soundday.Activity;
 
-import androidx.appcompat.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.soundday.Adapter.ChatAdapter;
 import com.example.soundday.DB.Chat;
@@ -130,11 +122,15 @@ implements ChatAdapter.HandleChatClick{
             binding.tvFinish.setVisibility(View.VISIBLE);
         }
 
+        binding.tvDiaryName.setText(diary_Name);
+
         binding.tvFinish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //일기 페이지로 이동
-                //DB updatediary
+                Intent intent = new Intent(ChatActivity.this, DiaryActivity.class);
+                intent.putExtra("diaryId", diary_id);
+                startActivity(intent);
             }
         });
 

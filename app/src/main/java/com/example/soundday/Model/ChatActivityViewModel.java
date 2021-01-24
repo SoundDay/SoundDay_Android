@@ -36,7 +36,6 @@ public class ChatActivityViewModel extends AndroidViewModel {
         return listOfChat;
     }
 
-
     public void getAllChatList(int dairy_id){
         List<Chat> ChatList = db.DiaryDao().getAllChatList(dairy_id);
         //db에 있는 Chat들 중 diary_Id인 애들을 ChatList에 담는다.

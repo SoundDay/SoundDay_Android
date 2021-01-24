@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Activity.DiaryActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--툴바-->
+            <ImageView
+                android:id="@+id/image_back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="29dp"
+                android:baselineAlignBottom="true"
+                android:src="@color/black"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_diaryName"
+                app:layout_constraintEnd_toStartOf="@id/tv_diaryName"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_diaryName"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="56dp"
+                android:gravity="center"
+                android:text="다이어리 날짜"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/image_back"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/image_diaryImage"
+                android:layout_width="320dp"
+                android:layout_height="205dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_diaryName"
+                android:layout_marginTop="44dp"
+                android:src="@color/black"
+                />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

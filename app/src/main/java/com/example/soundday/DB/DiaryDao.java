@@ -33,6 +33,9 @@ public interface DiaryDao {
     @Query("Select * from Diary where diaryName = :diary_name")
     List<Diary> getAllDiaryList(String diary_name);
 
+    @Query("Select * from Diary where id = :diary_id")
+    Diary getDiary(int diary_id);
+
     @Insert
     void insertDiary(Diary Diary);
 
