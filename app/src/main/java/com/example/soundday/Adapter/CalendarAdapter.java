@@ -43,10 +43,8 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String tmp = list.get(position);
-                if (!tmp.isEmpty() && list.size() != 7) {
-                    clickListener.itemClick(tmp);
-                    Toast.makeText(context, list.get(position), Toast.LENGTH_SHORT).show();
+                if (!list.get(position).isEmpty() && list.size() != 7) {
+                    clickListener.itemClick(list.get(position));
                 }
             }
         });

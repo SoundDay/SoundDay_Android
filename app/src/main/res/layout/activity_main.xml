@@ -1,92 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Activity.MainActivity"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    tools:context=".Activity.MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <!--연도-->
-        <TextView
-            android:id="@+id/tv_year"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="39dp"
-            android:layout_marginTop="56dp"
-            android:text="2021"
-            android:textSize="28sp"
-            app:layout_constraintEnd_toStartOf="@id/img_searchIcon"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <!--검색 아이콘-->
-        <ImageView
-            android:id="@+id/img_searchIcon"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="38dp"
-            android:baselineAlignBottom="true"
-            android:src="@color/black"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_year"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tv_year" />
+            <!--연도-->
+            <TextView
+                android:id="@+id/tv_year"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="39dp"
+                android:layout_marginTop="56dp"
+                android:text="2021"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toStartOf="@id/img_searchIcon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <!--월(숫자)-->
-        <TextView
-            android:id="@+id/tv_monthNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="75sp"
-            app:layout_constraintStart_toStartOf="@id/tv_year"
-            app:layout_constraintTop_toBottomOf="@id/tv_year" />
+            <!--검색 아이콘 : 검색 기능 미구현이라 숨김-->
+            <ImageView
+                android:id="@+id/img_searchIcon"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="38dp"
+                android:baselineAlignBottom="true"
+                android:src="@color/black"
+                android:visibility="invisible"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_year"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_year" />
 
-        <!--월(영어)-->
-        <TextView
-            android:id="@+id/tv_monthString"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="January"
-            android:textSize="23sp"
-            app:layout_constraintBaseline_toBaselineOf="@id/tv_monthNumber"
-            app:layout_constraintStart_toEndOf="@id/tv_monthNumber" />
+            <!--월(숫자)-->
+            <TextView
+                android:id="@+id/tv_monthNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"
+                android:textSize="75sp"
+                app:layout_constraintStart_toStartOf="@id/tv_year"
+                app:layout_constraintTop_toBottomOf="@id/tv_year" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_calendarDay"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:numColumns="7"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="@id/img_searchIcon"
-            app:layout_constraintStart_toStartOf="@id/tv_monthNumber"
-            app:layout_constraintTop_toBottomOf="@+id/tv_monthString" />
+            <!--월(영어)-->
+            <TextView
+                android:id="@+id/tv_monthString"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="January"
+                android:textSize="23sp"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_monthNumber"
+                app:layout_constraintStart_toEndOf="@id/tv_monthNumber" />
 
-        <View
-            android:id="@+id/line"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="4dp"
-            android:background="@color/black"
-            app:layout_constraintEnd_toEndOf="@id/img_searchIcon"
-            app:layout_constraintStart_toStartOf="@id/rcv_calendarDay"
-            app:layout_constraintTop_toBottomOf="@id/rcv_calendarDay" />
+            <!--요일-->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_calendarDay"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:numColumns="7"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="@id/img_searchIcon"
+                app:layout_constraintStart_toStartOf="@id/tv_monthNumber"
+                app:layout_constraintTop_toBottomOf="@+id/tv_monthString" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_calendar"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="23dp"
-            android:overScrollMode="never"
-            app:layout_constraintEnd_toEndOf="@id/line"
-            app:layout_constraintStart_toStartOf="@id/line"
-            app:layout_constraintTop_toBottomOf="@+id/line" />
-        <!--overScrollMode : recyclerView의 ripple effect를 끌 수 있다-->
+            <View
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/black"
+                app:layout_constraintEnd_toEndOf="@id/img_searchIcon"
+                app:layout_constraintStart_toStartOf="@id/rcv_calendarDay"
+                app:layout_constraintTop_toBottomOf="@id/rcv_calendarDay" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_calendar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                android:overScrollMode="never"
+                app:layout_constraintEnd_toEndOf="@id/line"
+                app:layout_constraintStart_toStartOf="@id/line"
+                app:layout_constraintTop_toBottomOf="@+id/line" />
+            <!--overScrollMode : recyclerView의 ripple effect를 끌 수 있다-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

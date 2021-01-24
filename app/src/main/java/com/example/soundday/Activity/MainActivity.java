@@ -1,14 +1,21 @@
 package com.example.soundday.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.soundday.Adapter.CalendarAdapter;
 import com.example.soundday.R;
+import com.example.soundday.databinding.ActivityMainBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.SimpleDateFormat;
@@ -21,24 +28,28 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity
         implements CalendarAdapter.HandleCalendarClick {
 
+    String date;
+    private ActivityMainBinding binding;
+    //뷰 바인딩을 통해 findviewbyid를 없애줌
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         //월-일 표시하기
-        RecyclerView rcv_calendarDay = findViewById(R.id.rcv_calendarDay);
-        initRecyclerView(rcv_calendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
+        initRecyclerView(binding.rcvCalendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
 
         //달력 표시하기
-        RecyclerView rcv_calendar = findViewById(R.id.rcv_calendar);
-        initRecyclerView(rcv_calendar, makeCalendarDate());
+        initRecyclerView(binding.rcvCalendar, makeCalendarDate());
     }
 
+
     //CalendarAdapter.HandleCalendarClick interface 구현
+    //리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함
     @Override
     public void itemClick(String day) {
-        showDiaryListDialog();
+        showDiaryListDialog(day);
     }
 
     //Method-------
@@ -78,8 +89,21 @@ public class MainActivity extends AppCompatActivity
         return dayList;
     }
 
-    private void showDiaryListDialog(){
+    private void showDiaryListDialog(String day) {
         View view = getLayoutInflater().inflate(R.layout.dialog_bs_dairylist, null);
+
+        String date = "2021 01 " + day;
+        ImageView image_create = view.findViewById(R.id.image_create);
+
+        image_create.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                intent.putExtra("diaryName", date);
+                startActivity(intent);
+            }
+        });
+
 
         BottomSheetDialog BottomSheet;
         BottomSheet = new BottomSheetDialog(this);
