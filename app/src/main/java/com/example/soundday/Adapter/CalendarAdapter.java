@@ -44,7 +44,9 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
             @Override
             public void onClick(View v) {
                 if (!list.get(position).isEmpty() && list.size() != 7) {
-                    clickListener.itemClick(list.get(position));
+                    String tmp = list.get(position);
+                    if(tmp.length() == 1) tmp = "0" + tmp;
+                    clickListener.calendarItemClick(tmp);
                 }
             }
         });
@@ -53,7 +55,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView tv_calendarText;
-
         CustomViewHolder(View itemView) {
             super(itemView);
             tv_calendarText = itemView.findViewById(R.id.tv_calendarText);
@@ -69,7 +70,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
     //HandleCalendarClick interface
     //리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함
     public interface HandleCalendarClick {
-        void itemClick(String day);
+        void calendarItemClick(String day);
     }
 }
 

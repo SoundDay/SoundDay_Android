@@ -2,7 +2,11 @@ package com.example.soundday.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -14,6 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.soundday.Adapter.CalendarAdapter;
+import com.example.soundday.Adapter.DiaryListAdapter;
+import com.example.soundday.DB.Chat;
+import com.example.soundday.DB.Diary;
+import com.example.soundday.Model.ChatActivityViewModel;
+import com.example.soundday.Model.MainActivityViewModel;
 import com.example.soundday.R;
 import com.example.soundday.databinding.ActivityMainBinding;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -23,14 +32,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements CalendarAdapter.HandleCalendarClick {
+        implements CalendarAdapter.HandleCalendarClick, DiaryListAdapter.HandleDiaryClick {
 
-    String date;
     private ActivityMainBinding binding;
     //뷰 바인딩을 통해 findviewbyid를 없애줌
+
+    private MainActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +50,29 @@ public class MainActivity extends AppCompatActivity
 
         //월-일 표시하기
         initRecyclerView(binding.rcvCalendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
-
         //달력 표시하기
         initRecyclerView(binding.rcvCalendar, makeCalendarDate());
     }
 
-
     //CalendarAdapter.HandleCalendarClick interface 구현
     //리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함
     @Override
-    public void itemClick(String day) {
+    public void calendarItemClick(String day) {
         showDiaryListDialog(day);
+    }
+
+    //DiaryAdapter.HandleDiaryClick interface 구현
+    public void DiaryItemClick(Diary diary) {
+        if (diary.completed) {
+            //채팅or일기 선택지
+        } else {
+            //채팅으로 이동
+            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+            intent.putExtra("diaryName", diary.diaryName);
+            intent.putExtra("completed", diary.completed);
+            intent.putExtra("diaryId", diary.id);
+            startActivity(intent);
+        }
     }
 
     //Method-------
@@ -92,22 +115,57 @@ public class MainActivity extends AppCompatActivity
     private void showDiaryListDialog(String day) {
         View view = getLayoutInflater().inflate(R.layout.dialog_bs_dairylist, null);
 
-        String date = "2021 01 " + day;
+        //image_Create
         ImageView image_create = view.findViewById(R.id.image_create);
-
         image_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
-                intent.putExtra("diaryName", date);
-                startActivity(intent);
+                Diary diary = new Diary();
+                diary.completed = false;
+                diary.diaryName = "2021 01 " + day;
+                diary.contents = "일기 내용";
+
+                //Diary 데이터 넣어줌
+                viewModel.insertDiary(diary);
             }
         });
 
+        //리사이클러뷰
+        RecyclerView rcv_diarylist = view.findViewById(R.id.rcv_dairylist);
+        rcv_diarylist.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
+        rcv_diarylist.setHasFixedSize(true);
+        rcv_diarylist.setLayoutManager(new LinearLayoutManager(this));
+        DiaryListAdapter adapter = new DiaryListAdapter(this, this);
+        rcv_diarylist.setAdapter(adapter);
 
+        //뷰 모델
+        initviewmodel(rcv_diarylist, adapter);
+
+        //Bottomsheet
         BottomSheetDialog BottomSheet;
         BottomSheet = new BottomSheetDialog(this);
         BottomSheet.setContentView(view);
         BottomSheet.show();
+    }
+
+    //뷰모델
+    private void initviewmodel(RecyclerView rcv_diaryList, DiaryListAdapter adapter) {
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(
+                getApplication())).get(MainActivityViewModel.class);
+
+        //ChatList들이 실시간으로 반영되도록 observe함
+        //데이터바인딩을 이용하면, observe패턴을 쓸 필요없이 xml에서 처리가 가능하다
+        viewModel.getDiaryListObserver().observe(this, new Observer<List<Diary>>() {
+            @Override
+            public void onChanged(List<Diary> diaries) {
+                //items List가 비어있는 경우
+                if (diaries == null) {
+                    rcv_diaryList.setVisibility(View.INVISIBLE);
+                } else {
+                    rcv_diaryList.setVisibility(View.VISIBLE);
+                    adapter.setDiaryList(diaries);
+                }
+            }
+        });
     }
 }
