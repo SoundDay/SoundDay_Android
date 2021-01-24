@@ -19,13 +19,15 @@ public class DiaryActivityViewModel extends AndroidViewModel {
 
     public DiaryActivityViewModel(@NonNull Application application) {
         super(application);
+
+        //여기서 초기화를 해주면, getDiaryObjectObserver()에서
+        //조건문으로 걸러주어 null인지 확인할 필요 없다.
+        diaryObject = new MutableLiveData<>();
+
         db = AppDatabase.getDBinstance(getApplication().getApplicationContext());
     }
 
     public MutableLiveData<Diary> getDiaryObjectObserver() {
-        if (diaryObject == null) {
-            diaryObject = new MutableLiveData<Diary>();
-        }
         return diaryObject;
     }
 
