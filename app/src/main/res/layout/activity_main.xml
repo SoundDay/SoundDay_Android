@@ -10,7 +10,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@drawable/background_main"
+            >
 
             <!--연도-->
             <TextView
@@ -91,6 +93,72 @@
                 app:layout_constraintStart_toStartOf="@id/line"
                 app:layout_constraintTop_toBottomOf="@+id/line" />
             <!--overScrollMode : recyclerView의 ripple effect를 끌 수 있다-->
+
+
+            <!--recentDiary [[수정 필요]-->
+            <TextView
+                android:id="@+id/tv_recentRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_monthNumber"
+                app:layout_constraintTop_toBottomOf="@id/rcv_calendar"
+                android:layout_marginTop="48dp"
+                android:text="Recent record"
+                />
+
+            <LinearLayout
+                android:id="@+id/recentDiaryBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@id/tv_recentRecord"
+                app:layout_constraintTop_toBottomOf="@id/tv_recentRecord"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:orientation="vertical"
+                android:background="@drawable/round_border_white_20"
+                android:paddingVertical="20dp"
+                android:paddingHorizontal="25dp">
+
+                <TextView
+                    android:id="@+id/tv_recentDiaryName1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" "/>
+                <TextView
+                    android:id="@+id/tv_recentDiaryContents1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="diaryContents"
+                    android:layout_marginTop="4dp"
+                    android:maxLines="3" />
+
+                <TextView
+                    android:id="@+id/tv_recentDiaryName2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text=" "/>
+                <TextView
+                    android:id="@+id/tv_recentDiaryContents2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="diaryContents"
+                    android:layout_marginTop="4dp"
+                    android:maxLines="3" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_noResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="당신의 하루를 말해보세요!"
+                app:layout_constraintStart_toStartOf="@id/tv_recentRecord"
+                app:layout_constraintTop_toBottomOf="@id/tv_recentRecord"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="25dp"
+                android:visibility="invisible"
+                />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

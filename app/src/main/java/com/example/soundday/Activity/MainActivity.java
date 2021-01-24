@@ -47,6 +47,10 @@ public class MainActivity extends AppCompatActivity
         initRecyclerView(binding.rcvCalendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
         //달력 표시하기
         initRecyclerView(binding.rcvCalendar, makeCalendarDate());
+
+        //뷰 모델 초기화
+        initviewmodel();
+        viewModel.getRecentDiaryList();
     }
 
     //CalendarAdapter.HandleCalendarClick interface 구현
@@ -69,6 +73,7 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
     }
+
 
     //Method-------
     private void initRecyclerView(RecyclerView recyclerView, ArrayList<String> list) {
@@ -136,8 +141,8 @@ public class MainActivity extends AppCompatActivity
         DiaryListAdapter adapter = new DiaryListAdapter(this, this);
         rcv_diarylist.setAdapter(adapter);
 
-        //뷰 모델
-        initviewmodel(rcv_diarylist, adapter, tv_noresult);
+        //뷰 모델 [[수정 필요]]
+        funcDiaryListChange(rcv_diarylist, adapter, tv_noresult);
 
         //현재 db에 있는 값들 recyclerview에 뿌려줌
         viewModel.getAllDiaryList(date);
@@ -149,17 +154,53 @@ public class MainActivity extends AppCompatActivity
         BottomSheet.show();
     }
 
-    //뷰모델
-    private void initviewmodel(RecyclerView rcv_diaryList, DiaryListAdapter adapter, TextView tv_noresult) {
+    //뷰 모델 초기화 [[수정 필요]]
+    private void initviewmodel() {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(
                 getApplication())).get(MainActivityViewModel.class);
 
-        //ChatList들이 실시간으로 반영되도록 observe함
+        //DiaryList들이 실시간으로 반영되도록 observe함
         //데이터바인딩을 이용하면, observe패턴을 쓸 필요없이 xml에서 처리가 가능하다
-        viewModel.getDiaryListObserver().observe(this, new Observer<List<Diary>>() {
+        viewModel.getRecentDiaryListObserver().observe(this, new Observer<List<Diary>>() {
             @Override
             public void onChanged(List<Diary> diaries) {
                 //items List가 비어있는 경우
+                if (diaries == null) {
+                    binding.tvNoResult.setVisibility(View.VISIBLE);
+                    binding.tvRecentDiaryContents1.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryContents2.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryName1.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryName2.setVisibility(View.INVISIBLE);
+                } else {
+                    binding.tvNoResult.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryName1.setVisibility(View.VISIBLE);
+                    binding.tvRecentDiaryName2.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryContents1.setVisibility(View.VISIBLE);
+                    binding.tvRecentDiaryContents2.setVisibility(View.INVISIBLE);
+                    binding.tvRecentDiaryName1.setText(diaries.get(0).diaryName);
+                    binding.tvRecentDiaryContents1.setText(diaries.get(0).contents);
+                    binding.tvRecentDiaryContents1.setMaxLines(3);
+
+                    if(diaries.size() >= 2){
+                        binding.tvRecentDiaryName2.setVisibility(View.VISIBLE);
+                        binding.tvRecentDiaryContents2.setVisibility(View.VISIBLE);
+
+                        binding.tvRecentDiaryName2.setText(diaries.get(1).diaryName);
+                        binding.tvRecentDiaryContents2.setText(diaries.get(1).contents);
+                        binding.tvRecentDiaryContents2.setMaxLines(3);
+                    }
+                }
+            }
+        });
+    }
+
+    //DiaryList Change Method
+    private void funcDiaryListChange(RecyclerView rcv_diaryList,
+                                     DiaryListAdapter adapter, TextView tv_noresult) {
+
+        viewModel.getDiaryListObserver().observe(this, new Observer<List<Diary>>() {
+            @Override
+            public void onChanged(List<Diary> diaries) {
                 if (diaries == null) {
                     tv_noresult.setVisibility(View.VISIBLE);
                     rcv_diaryList.setVisibility(View.INVISIBLE);

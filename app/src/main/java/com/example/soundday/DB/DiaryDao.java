@@ -36,6 +36,9 @@ public interface DiaryDao {
     @Query("Select * from Diary where id = :diary_id")
     Diary getDiaryObject(int diary_id);
 
+    @Query("Select * from Diary Where completed=1 ORDER BY diaryName ASC")
+    List<Diary> getRecentDiaryList();
+
     @Insert
     void insertDiary(Diary Diary);
 

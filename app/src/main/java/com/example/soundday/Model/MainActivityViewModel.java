@@ -35,6 +35,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         return listOfDiary;
     }
 
+    //[[수정 필요]]
+    public MutableLiveData<List<Diary>> getRecentDiaryListObserver(){
+        return listOfDiary;
+    }
+
     public void getAllDiaryList(String dairy_name){
         List<Diary> DiaryList = db.DiaryDao().getAllDiaryList(dairy_name);
         //db에 있는 Diary들 중 diary_Id인 애들을 DiaryList에 담는다.
@@ -61,5 +66,16 @@ public class MainActivityViewModel extends AndroidViewModel {
     public void deleteDiary(Diary Diary){
         db.DiaryDao().deleteDiary(Diary);
         getAllDiaryList(Diary.diaryName);
+    }
+
+    public void getRecentDiaryList(){
+        List<Diary> DiaryList = db.DiaryDao().getRecentDiaryList();
+        if(DiaryList.size() > 0){
+            //postValue : 값을 set하는데, 백그라운드에서 실행
+            listOfDiary.postValue(DiaryList);
+        }
+        else {//만약 ItemsLists가 null이면
+            listOfDiary.postValue(null);
+        }
     }
 }
