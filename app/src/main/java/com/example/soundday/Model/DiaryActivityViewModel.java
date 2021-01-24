@@ -15,14 +15,27 @@ import java.util.List;
 public class DiaryActivityViewModel extends AndroidViewModel {
 
     private AppDatabase db;
+    private MutableLiveData<Diary> diaryObject;
 
     public DiaryActivityViewModel(@NonNull Application application) {
         super(application);
         db = AppDatabase.getDBinstance(getApplication().getApplicationContext());
     }
 
-    public Diary getDiary(int dairy_id){
-        Diary diary = db.DiaryDao().getDiary(dairy_id);
+    public MutableLiveData<Diary> getDiaryObjectObserver() {
+        if (diaryObject == null) {
+            diaryObject = new MutableLiveData<Diary>();
+        }
+        return diaryObject;
+    }
+
+    public Diary getDiaryObject(int dairy_id) {
+        Diary diary = db.DiaryDao().getDiaryObject(dairy_id);
+        if (diary == null) {
+            diaryObject.postValue(null);
+        } else {
+            diaryObject.postValue(diary);
+        }
         return diary;
     }
 }

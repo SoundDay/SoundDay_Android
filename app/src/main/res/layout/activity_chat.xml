@@ -6,8 +6,9 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        >
+<!--        android:background="@drawable/background_chat"-->
 
         <!--툴바-->
         <ImageView
@@ -19,8 +20,8 @@
             android:baselineAlignBottom="true"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_diaryName"
             android:layout_marginStart="29dp"
-            android:src="@color/black"
             />
+<!--android:src="@drawable/img_back"-->
 
         <TextView
             android:id="@+id/tv_diaryName"

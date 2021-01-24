@@ -34,7 +34,6 @@ implements ChatAdapter.HandleChatClick{
     private String diary_Name;
     private boolean completed;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

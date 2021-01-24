@@ -18,34 +18,41 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_marginStart="29dp"
-                android:baselineAlignBottom="true"
-                android:src="@color/black"
-                app:layout_constraintBaseline_toBaselineOf="@id/tv_diaryName"
-                app:layout_constraintEnd_toStartOf="@id/tv_diaryName"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_diaryName"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
                 android:layout_marginTop="56dp"
-                android:gravity="center"
-                android:text="다이어리 날짜"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/image_back"
+                android:src="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
+            <!--산과 바다 이미지-->
             <ImageView
                 android:id="@+id/image_diaryImage"
                 android:layout_width="320dp"
                 android:layout_height="205dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_diaryName"
                 android:layout_marginTop="44dp"
                 android:src="@color/black"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/image_back" />
 
+            <!--일기장-->
+            <TextView
+                android:id="@+id/tv_diaryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="다이어리 날짜"
+                app:layout_constraintStart_toStartOf="@id/image_diaryImage"
+                app:layout_constraintTop_toBottomOf="@id/image_diaryImage" />
+
+            <TextView
+                android:id="@+id/tv_contents"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="다이어리 내용"
+                app:layout_constraintStart_toStartOf="@id/tv_diaryName"
+                app:layout_constraintTop_toBottomOf="@id/tv_diaryName" />
+
+            <!--수정 버튼과 complete-->
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
