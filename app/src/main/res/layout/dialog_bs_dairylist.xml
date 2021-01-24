@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/transparent"
     android:paddingBottom="50dp"
@@ -30,6 +30,7 @@
         />
 
     <TextView
+        android:id="@+id/tv_noresult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/image_create"
@@ -39,6 +40,7 @@
         android:layout_marginVertical="30dp"
         android:textSize="20sp"
         android:text="아직 일기를 작성하지 않았습니다!"
+        android:visibility="invisible"
         />
 
     <androidx.recyclerview.widget.RecyclerView

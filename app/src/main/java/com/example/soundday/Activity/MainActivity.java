@@ -1,27 +1,22 @@
 package com.example.soundday.Activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundday.Adapter.CalendarAdapter;
 import com.example.soundday.Adapter.DiaryListAdapter;
-import com.example.soundday.DB.Chat;
 import com.example.soundday.DB.Diary;
-import com.example.soundday.Model.ChatActivityViewModel;
 import com.example.soundday.Model.MainActivityViewModel;
 import com.example.soundday.R;
 import com.example.soundday.databinding.ActivityMainBinding;
@@ -114,6 +109,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showDiaryListDialog(String day) {
         View view = getLayoutInflater().inflate(R.layout.dialog_bs_dairylist, null);
+        String date = "2021 01 " + day;
 
         //image_Create
         ImageView image_create = view.findViewById(R.id.image_create);
@@ -122,7 +118,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v) {
                 Diary diary = new Diary();
                 diary.completed = false;
-                diary.diaryName = "2021 01 " + day;
+                diary.diaryName = date;
                 diary.contents = "일기 내용";
 
                 //Diary 데이터 넣어줌
@@ -130,16 +126,21 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+        //결과 없음
+        TextView tv_noresult = view.findViewById(R.id.tv_noresult);
+
         //리사이클러뷰
         RecyclerView rcv_diarylist = view.findViewById(R.id.rcv_dairylist);
-        rcv_diarylist.addItemDecoration(new DividerItemDecoration(getApplicationContext(), DividerItemDecoration.VERTICAL));
         rcv_diarylist.setHasFixedSize(true);
         rcv_diarylist.setLayoutManager(new LinearLayoutManager(this));
         DiaryListAdapter adapter = new DiaryListAdapter(this, this);
         rcv_diarylist.setAdapter(adapter);
 
         //뷰 모델
-        initviewmodel(rcv_diarylist, adapter);
+        initviewmodel(rcv_diarylist, adapter, tv_noresult);
+
+        //현재 db에 있는 값들 recyclerview에 뿌려줌
+        viewModel.getAllDiaryList(date);
 
         //Bottomsheet
         BottomSheetDialog BottomSheet;
@@ -149,7 +150,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     //뷰모델
-    private void initviewmodel(RecyclerView rcv_diaryList, DiaryListAdapter adapter) {
+    private void initviewmodel(RecyclerView rcv_diaryList, DiaryListAdapter adapter, TextView tv_noresult) {
         viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(
                 getApplication())).get(MainActivityViewModel.class);
 
@@ -160,9 +161,11 @@ public class MainActivity extends AppCompatActivity
             public void onChanged(List<Diary> diaries) {
                 //items List가 비어있는 경우
                 if (diaries == null) {
+                    tv_noresult.setVisibility(View.VISIBLE);
                     rcv_diaryList.setVisibility(View.INVISIBLE);
                 } else {
                     rcv_diaryList.setVisibility(View.VISIBLE);
+                    tv_noresult.setVisibility(View.INVISIBLE);
                     adapter.setDiaryList(diaries);
                 }
             }

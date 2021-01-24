@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SoundDay">
-        <activity android:name=".Activity.ChatActivity">
+        <activity android:name=".Activity.DairyActivity"></activity>
+        <!-- windowSoftInputMode="adjustPan" : typing시 뷰 올라가게 -->
+        <activity
+            android:name=".Activity.ChatActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

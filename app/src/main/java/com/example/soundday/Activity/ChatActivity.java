@@ -54,8 +54,7 @@ implements ChatAdapter.HandleChatClick{
         completed = getIntent().getBooleanExtra("completed",true);
 
         //툴바
-        makeToolbar(binding.toolbar);
-        binding.tvDiaryName.setText(diary_Name);
+        funcToolbar();
 
         //전송버튼
         binding.btnSend.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +107,7 @@ implements ChatAdapter.HandleChatClick{
                 else{
                     binding.rcvChat.setVisibility(View.VISIBLE);
                     chatAdapter.setChatList(chats);
+                    binding.rcvChat.smoothScrollToPosition(chats.size()-1);
                     //바뀐 chat이 리사이클러뷰에 적용되도록 adapter에게 알려줌
                 }
             }
@@ -122,32 +122,28 @@ implements ChatAdapter.HandleChatClick{
     }
 
     //툴바
-    private void makeToolbar(Toolbar tb){
-        setSupportActionBar(tb);
-        ActionBar ab = getSupportActionBar();
-        ab.setDisplayShowTitleEnabled(false); //기본 제목을 없애줌
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_launcher_foreground);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
-        menuInflater.inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_save:
-                Toast.makeText(getApplicationContext(), "완료", Toast.LENGTH_LONG).show();
-                return true;
-            case android.R.id.home:
-                finish();
-                return true;
+    private void funcToolbar(){
+        if(completed){
+            binding.tvFinish.setVisibility(View.INVISIBLE);
         }
-        return super.onOptionsItemSelected(item);
+        else{
+            binding.tvFinish.setVisibility(View.VISIBLE);
+        }
+
+        binding.tvFinish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //일기 페이지로 이동
+                //DB updatediary
+            }
+        });
+
+        binding.imageBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     //ChatAdapter의 HandleChatClick interface 구현------
