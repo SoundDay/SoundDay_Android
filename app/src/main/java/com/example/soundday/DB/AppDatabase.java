@@ -8,7 +8,6 @@ import androidx.room.RoomDatabase;
 
 @Database(entities = {Chat.class, Diary.class},version = 1)
 public abstract class AppDatabase extends RoomDatabase {
-
     public abstract DiaryDao DiaryDao();
 
     //db 생성을 액티비티에서 코드로 직접 실행하지 않고,

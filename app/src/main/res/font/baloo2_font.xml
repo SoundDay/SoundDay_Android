@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <!--baloo2 medium -->
+    <font
+        android:font="@font/baloo_2_medium"
+        android:fontStyle="normal"
+        android:fontWeight="500"
+        app:font="@font/baloo_2_medium"
+        app:fontStyle="normal"
+        app:fontWeight="500" />
+
+  <!--baloo2 regular -->
+  <font
+      android:font="@font/baloo_2_regular"
+      android:fontStyle="normal"
+      android:fontWeight="400"
+      app:font="@font/baloo_2_regular"
+      app:fontStyle="normal"
+      app:fontWeight="400" />
+
+</font-family>

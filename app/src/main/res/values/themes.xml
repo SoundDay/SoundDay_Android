@@ -20,6 +20,10 @@
 
         <!--BottomSheet dialog둥글게-->
         <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
+
+        <!--TextView 일괄 적용-->
+        <item name="android:textColor">@color/white</item>
+
     </style>
 
     <!--bottom sheet dialog 둥글게-->
@@ -30,6 +34,25 @@
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/dialog_bottom</item>
+    </style>
+
+    <!--TextView-->
+    <style name="balooMedium">
+        <item name="fontFamily">@font/baloo2_font</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="balooRegular">
+        <item name="fontFamily">@font/baloo2_font</item>
+    </style>
+
+    <style name="notoMedium">
+        <item name="fontFamily">@font/notosanskr_font</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="notoRegular">
+        <item name="fontFamily">@font/notosanskr_font</item>
     </style>
 
 </resources>

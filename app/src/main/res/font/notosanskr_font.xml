@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!--notosans regular-->
+    <font
+        android:font="@font/notosanskr_regular"
+        android:fontStyle="normal"
+        android:fontWeight="400"
+        app:font="@font/notosanskr_regular"
+        app:fontStyle="normal"
+        app:fontWeight="400"
+         />
+
+    <!--notosans medium-->
+    <font
+        android:font="@font/baloo_2_regular"
+        android:fontWeight="700"
+        android:fontStyle="normal"
+        app:fontStyle="normal"
+        app:font="@font/baloo_2_regular"
+        app:fontWeight="700"
+         />
+</font-family>
