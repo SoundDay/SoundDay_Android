@@ -59,7 +59,7 @@
                 style="@style/balooRegular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="7dp"
                 android:text="January"
                 android:textSize="@dimen/_23sp"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_monthNumber"
@@ -143,7 +143,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:text="당신의 하루를 말해보세요!"
-                android:textSize="@dimen/_14sp"
+                android:textSize="@dimen/_17sp"
                 android:visibility="invisible"
                 app:layout_constraintStart_toStartOf="@id/tv_recentRecord"
                 app:layout_constraintTop_toBottomOf="@id/tv_recentRecord" />
