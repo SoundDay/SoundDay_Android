@@ -130,6 +130,7 @@ implements ChatAdapter.HandleChatClick{
                 Intent intent = new Intent(ChatActivity.this, DiaryActivity.class);
                 intent.putExtra("diaryId", diary_id);
                 startActivity(intent);
+                finish();
             }
         });
 

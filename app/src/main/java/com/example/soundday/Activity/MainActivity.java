@@ -3,9 +3,12 @@ package com.example.soundday.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -16,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundday.Adapter.CalendarAdapter;
 import com.example.soundday.Adapter.DiaryListAdapter;
+import com.example.soundday.Adapter.RecentDiaryListAdapter;
 import com.example.soundday.DB.Diary;
 import com.example.soundday.Model.MainActivityViewModel;
 import com.example.soundday.R;
@@ -31,12 +35,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity
-        implements CalendarAdapter.HandleCalendarClick, DiaryListAdapter.HandleDiaryClick {
+        implements CalendarAdapter.HandleCalendarClick, DiaryListAdapter.HandleDiaryClick
+        , RecentDiaryListAdapter.HandleRecentDiaryClick{
 
-    private ActivityMainBinding binding;
-    //뷰 바인딩을 통해 findviewbyid를 없애줌
-
+    private ActivityMainBinding binding; //뷰 바인딩을 통해 findviewbyid를 없애줌
     private MainActivityViewModel viewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +48,25 @@ public class MainActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         //월-일 표시하기
-        initRecyclerView(binding.rcvCalendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
+        initCalendarView(binding.rcvCalendarDay, new ArrayList<String>(Arrays.asList("S", "M", "T", "W", "T", "F", "S")));
         //달력 표시하기
-        initRecyclerView(binding.rcvCalendar, makeCalendarDate());
+        initCalendarView(binding.rcvCalendar, makeCalendarDate());
+
+        //리사이클러뷰
+        binding.rcvRecentDiaryList.setHasFixedSize(true);
+        binding.rcvRecentDiaryList.setLayoutManager(new LinearLayoutManager(this));
+        RecentDiaryListAdapter recentDiaryListAdapter = new RecentDiaryListAdapter(this, this);
+        binding.rcvRecentDiaryList.setAdapter(recentDiaryListAdapter);
 
         //뷰 모델 초기화
-        initviewmodel();
+        viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(
+                getApplication())).get(MainActivityViewModel.class);
+
+        CallObverser(recentDiaryListAdapter);
         viewModel.getRecentDiaryList();
     }
 
-    //CalendarAdapter.HandleCalendarClick interface 구현
-    //리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함
+    //CalendarAdapter.HandleCalendarClick interface 구현 (리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함)
     @Override
     public void calendarItemClick(String day) {
         showDiaryListDialog(day);
@@ -63,6 +75,7 @@ public class MainActivity extends AppCompatActivity
     //DiaryAdapter.HandleDiaryClick interface 구현
     public void DiaryItemClick(Diary diary) {
         if (diary.completed) {
+
             //채팅or일기 선택지
         } else {
             //채팅으로 이동
@@ -74,9 +87,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    //RecentDiaryAdapter.HandleRecentDiaryClick interface 구현
+    @Override
+    public void RecentDiaryItemClick(Diary diary) {
+//        Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
+//        intent.putExtra("diaryId", diary.id);
+//        startActivity(intent);
+    }
 
-    //Method-------
-    private void initRecyclerView(RecyclerView recyclerView, ArrayList<String> list) {
+    //Method---------------------
+    private void initCalendarView(RecyclerView recyclerView, ArrayList<String> list) {
         CalendarAdapter calendarAdapter = new CalendarAdapter(this, list, this);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new GridLayoutManager(this, 7));
@@ -113,11 +133,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showDiaryListDialog(String day) {
-        View view = getLayoutInflater().inflate(R.layout.dialog_bs_dairylist, null);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_bs_dairylist, null);
         String date = "2021 01 " + day;
 
         //image_Create
-        ImageView image_create = view.findViewById(R.id.image_create);
+        ImageView image_create = dialogView.findViewById(R.id.image_create);
         image_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,83 +151,58 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-        //결과 없음
-        TextView tv_noresult = view.findViewById(R.id.tv_noresult);
+        TextView tv_noresult = dialogView.findViewById(R.id.tv_noresult);
 
         //리사이클러뷰
-        RecyclerView rcv_diarylist = view.findViewById(R.id.rcv_dairylist);
+        RecyclerView rcv_diarylist = dialogView.findViewById(R.id.rcv_dairylist);
         rcv_diarylist.setHasFixedSize(true);
         rcv_diarylist.setLayoutManager(new LinearLayoutManager(this));
-        DiaryListAdapter adapter = new DiaryListAdapter(this, this);
-        rcv_diarylist.setAdapter(adapter);
+        DiaryListAdapter diaryListAdapter = new DiaryListAdapter(this, this);
+        rcv_diarylist.setAdapter(diaryListAdapter);
 
-        //뷰 모델 [[수정 필요]]
-        funcDiaryListChange(rcv_diarylist, adapter, tv_noresult);
+        //옵저버 불러옴
+        CallObverser(tv_noresult,rcv_diarylist, diaryListAdapter);
 
         //현재 db에 있는 값들 recyclerview에 뿌려줌
         viewModel.getAllDiaryList(date);
+        viewModel.getRecentDiaryList();
 
         //Bottomsheet
         BottomSheetDialog BottomSheet;
         BottomSheet = new BottomSheetDialog(this);
-        BottomSheet.setContentView(view);
+        BottomSheet.setContentView(dialogView);
         BottomSheet.show();
     }
 
     //뷰 모델 초기화 [[수정 필요]]
-    private void initviewmodel() {
-        viewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(
-                getApplication())).get(MainActivityViewModel.class);
-
-        //DiaryList들이 실시간으로 반영되도록 observe함
-        //데이터바인딩을 이용하면, observe패턴을 쓸 필요없이 xml에서 처리가 가능하다
-        viewModel.getRecentDiaryListObserver().observe(this, new Observer<List<Diary>>() {
-            @Override
-            public void onChanged(List<Diary> diaries) {
-                //items List가 비어있는 경우
-                if (diaries == null) {
-                    binding.tvNoResult.setVisibility(View.VISIBLE);
-                    binding.tvRecentDiaryContents1.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryContents2.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryName1.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryName2.setVisibility(View.INVISIBLE);
-                } else {
-                    binding.tvNoResult.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryName1.setVisibility(View.VISIBLE);
-                    binding.tvRecentDiaryName2.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryContents1.setVisibility(View.VISIBLE);
-                    binding.tvRecentDiaryContents2.setVisibility(View.INVISIBLE);
-                    binding.tvRecentDiaryName1.setText(diaries.get(0).diaryName);
-                    binding.tvRecentDiaryContents1.setText(diaries.get(0).contents);
-                    binding.tvRecentDiaryContents1.setMaxLines(3);
-
-                    if(diaries.size() >= 2){
-                        binding.tvRecentDiaryName2.setVisibility(View.VISIBLE);
-                        binding.tvRecentDiaryContents2.setVisibility(View.VISIBLE);
-
-                        binding.tvRecentDiaryName2.setText(diaries.get(1).diaryName);
-                        binding.tvRecentDiaryContents2.setText(diaries.get(1).contents);
-                        binding.tvRecentDiaryContents2.setMaxLines(3);
-                    }
-                }
-            }
-        });
-    }
-
-    //DiaryList Change Method
-    private void funcDiaryListChange(RecyclerView rcv_diaryList,
-                                     DiaryListAdapter adapter, TextView tv_noresult) {
-
+    private void CallObverser(TextView tv_noresult, RecyclerView rcv_diarylist, DiaryListAdapter diaryListAdapter){
         viewModel.getDiaryListObserver().observe(this, new Observer<List<Diary>>() {
             @Override
             public void onChanged(List<Diary> diaries) {
                 if (diaries == null) {
                     tv_noresult.setVisibility(View.VISIBLE);
-                    rcv_diaryList.setVisibility(View.INVISIBLE);
+                    rcv_diarylist.setVisibility(View.INVISIBLE);
                 } else {
-                    rcv_diaryList.setVisibility(View.VISIBLE);
+                    rcv_diarylist.setVisibility(View.VISIBLE);
                     tv_noresult.setVisibility(View.INVISIBLE);
-                    adapter.setDiaryList(diaries);
+                    diaryListAdapter.setDiaryList(diaries);
+                }
+            }
+        });
+    }
+
+    private void CallObverser(RecentDiaryListAdapter recentDiaryListAdapter){
+        //DiaryList들이 실시간으로 반영되도록 observe함
+        //데이터바인딩을 이용하면, observe패턴을 쓸 필요없이 xml에서 처리가 가능하다
+        viewModel.getRecentDiaryListObserver().observe(this, new Observer<List<Diary>>() {
+            @Override
+            public void onChanged(List<Diary> diaries) {
+                if (diaries == null) {
+                    binding.tvNoResult.setVisibility(View.VISIBLE);
+                } else {
+                    binding.tvNoResult.setVisibility(View.INVISIBLE);
+                    recentDiaryListAdapter.setRecentDiaryList(diaries);
+                    viewModel.getRecentDiaryList();
                 }
             }
         });

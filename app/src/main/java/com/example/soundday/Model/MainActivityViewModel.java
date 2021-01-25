@@ -20,13 +20,14 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     //Dao에서 LiveData< >를 반환하지 않고, 일단 List<>를 반환한다음
     //ViewModel에서 MutableLiveData<List<Diary>> listOfDiary을 이용해 넣어준다.
-    private MutableLiveData<List<Diary>> listOfDiary;
+    private MutableLiveData<List<Diary>> listOfDiary, listOfRecentDiary;
     private AppDatabase db;
 
     public MainActivityViewModel(@NonNull Application application) {
         super(application);
 
         listOfDiary = new MutableLiveData<>();
+        listOfRecentDiary = new MutableLiveData<>();
         db = AppDatabase.getDBinstance(getApplication().getApplicationContext());
     }
 
@@ -37,7 +38,7 @@ public class MainActivityViewModel extends AndroidViewModel {
 
     //[[수정 필요]]
     public MutableLiveData<List<Diary>> getRecentDiaryListObserver(){
-        return listOfDiary;
+        return listOfRecentDiary;
     }
 
     public void getAllDiaryList(String dairy_name){
@@ -72,10 +73,10 @@ public class MainActivityViewModel extends AndroidViewModel {
         List<Diary> DiaryList = db.DiaryDao().getRecentDiaryList();
         if(DiaryList.size() > 0){
             //postValue : 값을 set하는데, 백그라운드에서 실행
-            listOfDiary.postValue(DiaryList);
+            listOfRecentDiary.postValue(DiaryList);
         }
         else {//만약 ItemsLists가 null이면
-            listOfDiary.postValue(null);
+            listOfRecentDiary.postValue(null);
         }
     }
 }
