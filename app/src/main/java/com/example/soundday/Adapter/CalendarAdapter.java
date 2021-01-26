@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.soundday.R;
@@ -46,6 +47,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
                 if (!list.get(position).isEmpty() && list.size() != 7) {
                     String tmp = list.get(position);
                     if(tmp.length() == 1) tmp = "0" + tmp;
+                //    holder.tv_calendarText.setBackground(ContextCompat.getDrawable(context,R.drawable.round_white_10));
                     clickListener.calendarItemClick(tmp);
                 }
             }

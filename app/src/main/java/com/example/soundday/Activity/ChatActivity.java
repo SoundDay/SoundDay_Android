@@ -132,6 +132,7 @@ public class ChatActivity extends AppCompatActivity
                 //일기 페이지로 이동
                 Intent intent = new Intent(ChatActivity.this, DiaryActivity.class);
                 intent.putExtra("diaryId", diary_id);
+                intent.putExtra("completed", completed);
                 startActivity(intent);
                 finish();
             }

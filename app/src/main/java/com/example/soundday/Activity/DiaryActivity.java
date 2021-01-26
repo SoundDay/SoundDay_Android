@@ -26,7 +26,7 @@ public class DiaryActivity extends AppCompatActivity {
 
     //intent로 받는 애
     private int diary_id;
-    private String diary_Name;
+    private boolean completed;
 
     private ActivityDiaryBinding binding;
     private DiaryActivityViewModel viewModel;
@@ -38,11 +38,20 @@ public class DiaryActivity extends AppCompatActivity {
 
         //intent로 받아옴
         diary_id = getIntent().getIntExtra("diaryId",0);
+        completed = getIntent().getBooleanExtra("completed", true);
 
         statusbarTransparent();
 
         //툴바
         funcToolbar();
+
+        //completed 처리
+        if(completed) {
+            binding.tvComplete.setVisibility(View.INVISIBLE);
+        }
+        else{
+            binding.tvComplete.setVisibility(View.VISIBLE);
+        }
 
         //뷰모델 초기화
         initViewModel();

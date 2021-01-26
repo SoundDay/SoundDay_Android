@@ -70,6 +70,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_diaryName" />
 
 
+        <!--전송 채팅-->
         <EditText
             android:id="@+id/et_typing"
             android:layout_width="0dp"
@@ -86,7 +87,31 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toEndOf="@id/et_typing" />
+            app:layout_constraintStart_toEndOf="@id/et_typing"
+            />
+//            android:visibility="gone"
+
+
+        <!--원본-->
+        <View
+            android:id="@+id/bottom_white"
+            android:layout_width="0dp"
+            android:layout_height="250dp"
+            android:background="@drawable/round_white_upper_20"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/rcv_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <ImageView
+            android:id="@+id/image_gotovoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/bottom_white"
+            app:layout_constraintEnd_toEndOf="@id/bottom_white"
+            app:layout_constraintTop_toTopOf="@id/bottom_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/img_chat_voice"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

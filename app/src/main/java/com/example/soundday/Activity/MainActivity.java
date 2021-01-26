@@ -1,5 +1,6 @@
 package com.example.soundday.Activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
@@ -80,8 +82,30 @@ public class MainActivity extends AppCompatActivity
     //DiaryAdapter.HandleDiaryClick interface 구현
     public void DiaryItemClick(Diary diary) {
         if (diary.completed) {
-
             //채팅or일기 선택지
+            AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialog);
+            builder.setTitle("-" + diary.diaryName + "-");
+            String[] items = new String[]{"채팅으로 보기", "일기장으로 보기"};
+            builder.setItems(items, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int pos) {
+                    if(pos==0){
+                        //채팅
+                        Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                        intent.putExtra("diaryName", diary.diaryName);
+                        intent.putExtra("completed", diary.completed);
+                        intent.putExtra("diaryId", diary.id);
+                        startActivity(intent);
+                    }
+                    else{
+                        Intent intent = new Intent(MainActivity.this, DiaryActivity.class);
+                        intent.putExtra("completed", diary.completed);
+                        intent.putExtra("diaryId", diary.id);
+                        startActivity(intent);
+                    }
+                }
+            });
+            builder.show();
+
         } else {
             //채팅으로 이동
             Intent intent = new Intent(MainActivity.this, ChatActivity.class);
