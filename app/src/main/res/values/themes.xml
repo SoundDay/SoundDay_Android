@@ -59,4 +59,9 @@
         <item name="fontFamily">@font/notosanskr_font</item>
     </style>
 
+    <!--splash-->
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
 </resources>
