@@ -13,7 +13,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/_30dp">
+            android:paddingBottom="40dp">
 
             <!--연도-->
             <TextView
@@ -115,11 +115,11 @@
             <!--recentDiary 배경-->
             <View
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_160dp"
+                android:layout_height="240dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_recentRecord"
                 app:layout_constraintTop_toBottomOf="@id/tv_recentRecord"
-                android:background="@drawable/background_recent_record"
+                android:background="@drawable/round_border_white_20"
                 />
 
             <androidx.recyclerview.widget.RecyclerView

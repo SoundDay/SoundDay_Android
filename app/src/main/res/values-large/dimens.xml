@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="_28sp">38sp</dimen>
+    <dimen name="_75sp">85sp</dimen>
+    <dimen name="_23sp">33sp</dimen>
+    <dimen name="_18sp">28sp</dimen>
+    <dimen name="_14sp">24sp</dimen>
+    <dimen name="_20sp">30sp</dimen>
+    <dimen name="_17sp">27sp</dimen>
+    <dimen name="_15sp">25sp</dimen>
+    <dimen name="_9sp">19sp</dimen>
+    <dimen name="_16sp">26sp</dimen>
+
+    <!--dp-->
+    <dimen name="_30dp">40dp</dimen>
+    <dimen name="_39dp">49dp</dimen>
+    <dimen name="_56dp">66dp</dimen>
+    <dimen name="_7dp">17dp</dimen>
+    <dimen name="_13dp">23dp</dimen>
+    <dimen name="_14dp">14dp</dimen>
+    <dimen name="_1dp">2dp</dimen>
+    <dimen name="_23dp">33dp</dimen>
+    <dimen name="_48dp">58dp</dimen>
+    <dimen name="_10dp">20dp</dimen>
+    <dimen name="_160dp">170dp</dimen>
+    <dimen name="_25dp">35dp</dimen>
+    <dimen name="_20dp">30dp</dimen>
+    <!--dp-->
+<!--    <dimen name="_30dp">30dp</dimen>-->
+<!--    <dimen name="_39dp">39dp</dimen>-->
+<!--    <dimen name="_56dp">56dp</dimen>-->
+<!--    <dimen name="_7dp">7dp</dimen>-->
+<!--    <dimen name="_13dp">13dp</dimen>-->
+<!--    <dimen name="_14dp">4dp</dimen>-->
+<!--    <dimen name="_23dp">23dp</dimen>-->
+<!--    <dimen name="_48dp">48dp</dimen>-->
+<!--    <dimen name="_10dp">10dp</dimen>-->
+<!--    <dimen name="_160dp">160dp</dimen>-->
+<!--    <dimen name="_25dp">25dp</dimen>-->
+<!--    <dimen name="_20dp">20dp</dimen>-->
+</resources>

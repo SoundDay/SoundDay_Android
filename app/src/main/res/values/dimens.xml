@@ -10,4 +10,19 @@
     <dimen name="_15sp">15sp</dimen>
     <dimen name="_9sp">9sp</dimen>
     <dimen name="_16sp">16sp</dimen>
+
+    <!--dp-->
+    <dimen name="_30dp">30dp</dimen>
+    <dimen name="_39dp">39dp</dimen>
+    <dimen name="_56dp">56dp</dimen>
+    <dimen name="_7dp">7dp</dimen>
+    <dimen name="_13dp">13dp</dimen>
+    <dimen name="_14dp">4dp</dimen>
+    <dimen name="_1dp">1dp</dimen>
+    <dimen name="_23dp">23dp</dimen>
+    <dimen name="_48dp">48dp</dimen>
+    <dimen name="_10dp">10dp</dimen>
+    <dimen name="_160dp">160dp</dimen>
+    <dimen name="_25dp">25dp</dimen>
+    <dimen name="_20dp">20dp</dimen>
 </resources>

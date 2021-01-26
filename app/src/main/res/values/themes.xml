@@ -46,6 +46,10 @@
         <item name="fontFamily">@font/baloo2_font</item>
     </style>
 
+    <style name="balooSemiBold">
+        <item name="fontFamily">@font/baloo2_semibold</item>
+    </style>
+
     <style name="notoMedium">
         <item name="fontFamily">@font/notosanskr_font</item>
         <item name="android:textStyle">bold</item>

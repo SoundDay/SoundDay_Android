@@ -38,7 +38,8 @@ public class DiaryListAdapter extends RecyclerView.Adapter<DiaryListAdapter.MyVi
         if (DiaryList.size() == 1) {
             holder.tv_diaryName.setText(this.DiaryList.get(position).diaryName);
         } else if (DiaryList.size() > 1) {
-            holder.tv_diaryName.setText(this.DiaryList.get(position).diaryName + "   (" + position + 1 + ")");
+            int now = position + 1;
+            holder.tv_diaryName.setText(this.DiaryList.get(position).diaryName + "   (" + now + ")");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
