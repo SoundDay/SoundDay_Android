@@ -53,13 +53,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
         //user가 1(사용자인 경우)
         if(this.ChatList.get(position).user){
             holder.tv_user.setText("Me");
-            //holder.image_user.setImageResource(R.drawable.ic_launcher_background);
-            holder.image_user.setImageResource(R.color.black);
+            holder.image_user.setImageResource(R.drawable.img_chat_user);
         }
         else{
             holder.tv_user.setText("SD");
-            //holder.image_user.setImageResource(R.drawable.ic_launcher_background);
-            holder.image_user.setImageResource(R.color.white);
+            holder.image_user.setImageResource(R.drawable.img_chat_sd);
         }
     }
 

@@ -6,20 +6,18 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <!--비율을 맞춰주기 위해 배경을 imageView로 함-->
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/background_chat"
-            app:layout_constraintStart_toStartOf="parent"
+            android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:scaleType="fitCenter"
-            />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--툴바-->
         <ImageView
@@ -28,10 +26,10 @@
             android:layout_height="20dp"
             android:layout_marginStart="29dp"
             android:baselineAlignBottom="true"
+            android:src="@drawable/img_back"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_diaryName"
             app:layout_constraintEnd_toStartOf="@id/tv_diaryName"
             app:layout_constraintStart_toStartOf="parent" />
-        <!--android:src="@drawable/img_back"-->
 
         <TextView
             android:id="@+id/tv_diaryName"
@@ -39,7 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
             android:gravity="center"
+            android:textSize="@dimen/_23sp"
             android:text="다이어리 날짜"
+            style="@style/balooMedium"
             app:layout_constraintEnd_toStartOf="@id/tv_finish"
             app:layout_constraintStart_toEndOf="@id/image_back"
             app:layout_constraintTop_toTopOf="parent" />
@@ -50,6 +50,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="29dp"
             android:baselineAlignBottom="true"
+            android:textSize="@dimen/_15sp"
+            style="@style/balooMedium"
             android:text="완료"
             app:layout_constraintBaseline_toBaselineOf="@id/tv_diaryName"
             app:layout_constraintEnd_toEndOf="parent"

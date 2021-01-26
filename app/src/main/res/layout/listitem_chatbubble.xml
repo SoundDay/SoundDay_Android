@@ -6,14 +6,13 @@
     android:layout_marginBottom="22dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <ImageView
         android:id="@+id/image_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@color/black"/>
+        android:src="@drawable/img_chat_user"/>
 
 
     <TextView
@@ -23,6 +22,8 @@
         app:layout_constraintStart_toEndOf="@id/image_user"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="12dp"
+        android:textSize="@dimen/_14sp"
+        style="@style/notoMedium"
         android:text="닉네임"
         />
 
@@ -33,6 +34,8 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/tv_user"
         app:layout_constraintTop_toBottomOf="@id/tv_user"
+        android:textSize="@dimen/_14sp"
+        style="@style/notoRegular"
         android:text="채팅 내용"
         />
 

@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Activity.DiaryActivity">
 
-    <ScrollView
+    <!--스크롤뷰 하단에 버튼 넣기 위해, nestedscrollview와 fillviewport 사용-->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background_diary"
+        android:fillViewport="true"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -19,17 +23,17 @@
                 android:layout_height="20dp"
                 android:layout_marginStart="29dp"
                 android:layout_marginTop="56dp"
-                android:src="@color/black"
+                android:src="@drawable/img_back"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!--산과 바다 이미지-->
             <ImageView
                 android:id="@+id/image_diaryImage"
-                android:layout_width="320dp"
-                android:layout_height="205dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="44dp"
-                android:src="@color/black"
+                android:src="@drawable/img_diary_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/image_back" />
 
@@ -38,8 +42,10 @@
                 android:id="@+id/tv_diaryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="15dp"
                 android:text="다이어리 날짜"
+                style="@style/balooMedium"
+                android:textSize="@dimen/_16sp"
                 app:layout_constraintStart_toStartOf="@id/image_diaryImage"
                 app:layout_constraintTop_toBottomOf="@id/image_diaryImage" />
 
@@ -49,19 +55,35 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="다이어리 내용"
+                style="@style/notoRegular"
+                android:textSize="@dimen/_14sp"
                 app:layout_constraintStart_toStartOf="@id/tv_diaryName"
                 app:layout_constraintTop_toBottomOf="@id/tv_diaryName" />
 
             <!--수정 버튼과 complete-->
-            <TextView
-                android:id="@+id/tv_complete"
+            <ImageView
+                android:id="@+id/diary_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="@id/tv_contents"
-                app:layout_constraintTop_toBottomOf="@id/tv_contents"
+                app:layout_constraintStart_toStartOf="@id/image_back"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/img_diary_edit"
+                android:layout_marginBottom="32dp"
+                />
+
+            <TextView
+                android:id="@+id/tv_complete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginEnd="32dp"
+                style="@style/balooMedium"
+                android:textSize="@dimen/_15sp"
                 android:text="Complete"
+                android:layout_marginBottom="32dp"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </layout>

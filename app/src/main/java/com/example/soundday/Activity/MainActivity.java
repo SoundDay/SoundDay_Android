@@ -69,8 +69,6 @@ public class MainActivity extends AppCompatActivity
 
         CallObverser(recentDiaryListAdapter);
         viewModel.getRecentDiaryList();
-
-
     }
 
     //CalendarAdapter.HandleCalendarClick interface 구현 (리사이클러뷰 외부에서 아이템 클릭 이벤트 처리하기 위함)
@@ -202,6 +200,7 @@ public class MainActivity extends AppCompatActivity
                     rcv_diarylist.setVisibility(View.VISIBLE);
                     tv_noresult.setVisibility(View.INVISIBLE);
                     diaryListAdapter.setDiaryList(diaries);
+                    rcv_diarylist.smoothScrollToPosition(diaries.size() - 1);
                 }
             }
         });
