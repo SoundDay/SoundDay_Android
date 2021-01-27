@@ -120,6 +120,7 @@ public class DiaryActivity extends AppCompatActivity {
             Toast.makeText(this, "[오류 발생] 오류 신고 부탁드립니다.", Toast.LENGTH_SHORT).show();
         }
         else{
+            //diary.contents = "집에 있는 시간이 너무 길어지니깐 답답하고 기분도 다운되는거\n같아 이런 기분을 어떻게 해소할 수 있을지 모르겠어";
             binding.tvDiaryName.setText(diary.diaryName);
             binding.tvContents.setText(diary.contents);
         }
