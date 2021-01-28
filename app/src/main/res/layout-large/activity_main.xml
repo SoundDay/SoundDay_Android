@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_39dp"
                 android:baselineAlignBottom="true"
-                android:src="@drawable/img_search"
+                android:src="@drawable/img_search_icon_large"
                 app:layout_constraintBaseline_toBaselineOf="@id/tv_year"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_year" />
@@ -115,7 +115,7 @@
             <!--recentDiary 배경-->
             <View
                 android:layout_width="0dp"
-                android:layout_height="240dp"
+                android:layout_height="290dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tv_recentRecord"
                 app:layout_constraintTop_toBottomOf="@id/tv_recentRecord"

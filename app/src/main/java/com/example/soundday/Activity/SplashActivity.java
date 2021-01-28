@@ -29,6 +29,7 @@ public class SplashActivity extends AppCompatActivity {
         }, 1000);
     }
 
+
     private void statusbarTransparent() {
         //style AppTheme에 <item name="android:statusBarColor">@android:color/transparent</item>
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {

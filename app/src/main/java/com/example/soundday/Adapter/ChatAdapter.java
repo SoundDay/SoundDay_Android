@@ -40,6 +40,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.MyViewHolder> 
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv_contents.setText(this.ChatList.get(position).contents);
 
+
         //길게 누를 경우 삭제
 //        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
 //            @Override

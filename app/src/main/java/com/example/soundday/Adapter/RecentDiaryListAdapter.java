@@ -36,6 +36,7 @@ public class RecentDiaryListAdapter extends RecyclerView.Adapter<RecentDiaryList
     public void onBindViewHolder(MyViewHolder holder, int position) {
         holder.tv_diaryName.setText(this.DiaryList.get(position).diaryName);
         holder.tv_diaryContents.setText(this.DiaryList.get(position).contents);
+        holder.tv_diaryContents.setMaxLines(2);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

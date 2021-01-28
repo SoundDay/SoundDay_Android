@@ -1,6 +1,7 @@
 package com.example.soundday.Adapter;
 
 import android.content.Context;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,13 +42,20 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         holder.tv_calendarText.setText(list.get(position));
 
+        //[[수정 필요]]
+        if (position == 32) {
+            holder.tv_calendarText.setBackground(ContextCompat.getDrawable(context, R.drawable.calendarpointer));
+            holder.tv_calendarText.setTextColor(ContextCompat.getColor(context, R.color.navy));
+            holder.tv_calendarText.setGravity(Gravity.CENTER);
+
+        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!list.get(position).isEmpty() && list.size() != 7) {
                     String tmp = list.get(position);
-                    if(tmp.length() == 1) tmp = "0" + tmp;
-                //    holder.tv_calendarText.setBackground(ContextCompat.getDrawable(context,R.drawable.round_white_10));
+                    if (tmp.length() == 1) tmp = "0" + tmp;
+
                     clickListener.calendarItemClick(tmp);
                 }
             }
@@ -57,6 +65,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.Custom
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         TextView tv_calendarText;
+
         CustomViewHolder(View itemView) {
             super(itemView);
             tv_calendarText = itemView.findViewById(R.id.tv_calendarText);

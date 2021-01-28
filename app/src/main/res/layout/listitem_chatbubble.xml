@@ -30,10 +30,11 @@
 
     <TextView
         android:id="@+id/tv_contents"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="@id/tv_user"
         app:layout_constraintTop_toBottomOf="@id/tv_user"
+        app:layout_constraintEnd_toEndOf="parent"
         android:textSize="@dimen/_14sp"
         style="@style/notoRegular"
         android:text="채팅 내용"

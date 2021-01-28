@@ -9,5 +9,6 @@
     <color name="black3d">#3d3d3d</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#A6000000</color>
+    <color name="navy">#3e4f7b</color>
     <color name="transparent">#00000000</color>
 </resources>
